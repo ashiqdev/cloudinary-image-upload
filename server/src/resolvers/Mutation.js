@@ -3,9 +3,9 @@ const { createWriteStream } = require("fs");
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
-  cloud_name: "db9rcrnuw",
-  api_key: "377755661884192",
-  api_secret: "yj0U2IocNbQv7ny0CQwyKDa_jj4"
+  cloud_name: process.env.CloudName,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret
 });
 
 const saveFile = ({ stream, filename }) =>
