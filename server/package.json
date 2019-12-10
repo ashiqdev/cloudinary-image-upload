@@ -12,7 +12,8 @@
     "graphql-cli": "^3.0.14",
     "graphql-yoga": "^1.18.3",
     "node-fetch": "^2.6.0",
-    "prisma-binding": "^2.3.16"
+    "prisma-binding": "^2.3.16",
+    "temp-write": "^4.0.0"
   },
   "scripts": {
     "start": "node src/index.js"

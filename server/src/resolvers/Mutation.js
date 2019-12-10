@@ -1,5 +1,6 @@
 const fs = require("fs");
 const { createWriteStream } = require("fs");
+const tempWrite = require('temp-write');
 const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
@@ -23,7 +24,7 @@ const eager_options = {
 
 const uploadToCloudinary = filename => {
   return new Promise((resolve, reject) => {
-    cloudinary.uploader.upload(
+    const upload_stream = cloudinary.uploader.upload(
       filename,
       { tags: "basic_sample", public_id: "blue_lake", eager: eager_options },
       function(err, image) {
@@ -44,7 +45,10 @@ const uploadToCloudinary = filename => {
 
 const Mutations = {
   async uploadFile(parent, args, ctx, info) {
-    const { stream, filename } = await args.file;
+    const { stream } = await args.file;
+    const filePath = tempWrite.sync('unicorn');
+    const filename = fs.readFileSync(filePath, 'utf8');
+    console.log({ filename });
 
     // write in fileSystem
     await saveFile({ stream, filename });
