@@ -1,0 +1,344 @@
+# source: https://us1.prisma.sh/ashiqur-rahman/image-upload/dev
+# timestamp: Mon Dec 09 2019 21:59:20 GMT+0600 (+06)
+
+type AggregateScreen {
+  count: Int!
+}
+
+type BatchPayload {
+  """The number of nodes that have been affected by the Batch operation."""
+  count: Long!
+}
+
+"""
+The `Long` scalar type represents non-fractional signed whole numeric values.
+Long can represent values between -(2^63) and 2^63 - 1.
+"""
+scalar Long
+
+type Mutation {
+  createScreen(data: ScreenCreateInput!): Screen!
+  updateScreen(data: ScreenUpdateInput!, where: ScreenWhereUniqueInput!): Screen
+  deleteScreen(where: ScreenWhereUniqueInput!): Screen
+  upsertScreen(where: ScreenWhereUniqueInput!, create: ScreenCreateInput!, update: ScreenUpdateInput!): Screen!
+  updateManyScreens(data: ScreenUpdateManyMutationInput!, where: ScreenWhereInput): BatchPayload!
+  deleteManyScreens(where: ScreenWhereInput): BatchPayload!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+type Query {
+  screens(where: ScreenWhereInput, orderBy: ScreenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Screen]!
+  screen(where: ScreenWhereUniqueInput!): Screen
+  screensConnection(where: ScreenWhereInput, orderBy: ScreenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ScreenConnection!
+
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+}
+
+type Screen implements Node {
+  id: ID!
+  basepath: String!
+  original: String!
+  w200: String!
+}
+
+"""A connection to a list of items."""
+type ScreenConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ScreenEdge]!
+  aggregate: AggregateScreen!
+}
+
+input ScreenCreateInput {
+  id: ID
+  basepath: String!
+  original: String!
+  w200: String!
+}
+
+"""An edge in a connection."""
+type ScreenEdge {
+  """The item at the end of the edge."""
+  node: Screen!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ScreenOrderByInput {
+  id_ASC
+  id_DESC
+  basepath_ASC
+  basepath_DESC
+  original_ASC
+  original_DESC
+  w200_ASC
+  w200_DESC
+}
+
+type ScreenPreviousValues {
+  id: ID!
+  basepath: String!
+  original: String!
+  w200: String!
+}
+
+type ScreenSubscriptionPayload {
+  mutation: MutationType!
+  node: Screen
+  updatedFields: [String!]
+  previousValues: ScreenPreviousValues
+}
+
+input ScreenSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ScreenSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ScreenSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ScreenSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ScreenWhereInput
+}
+
+input ScreenUpdateInput {
+  basepath: String
+  original: String
+  w200: String
+}
+
+input ScreenUpdateManyMutationInput {
+  basepath: String
+  original: String
+  w200: String
+}
+
+input ScreenWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ScreenWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ScreenWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ScreenWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  basepath: String
+
+  """All values that are not equal to given value."""
+  basepath_not: String
+
+  """All values that are contained in given list."""
+  basepath_in: [String!]
+
+  """All values that are not contained in given list."""
+  basepath_not_in: [String!]
+
+  """All values less than the given value."""
+  basepath_lt: String
+
+  """All values less than or equal the given value."""
+  basepath_lte: String
+
+  """All values greater than the given value."""
+  basepath_gt: String
+
+  """All values greater than or equal the given value."""
+  basepath_gte: String
+
+  """All values containing the given string."""
+  basepath_contains: String
+
+  """All values not containing the given string."""
+  basepath_not_contains: String
+
+  """All values starting with the given string."""
+  basepath_starts_with: String
+
+  """All values not starting with the given string."""
+  basepath_not_starts_with: String
+
+  """All values ending with the given string."""
+  basepath_ends_with: String
+
+  """All values not ending with the given string."""
+  basepath_not_ends_with: String
+  original: String
+
+  """All values that are not equal to given value."""
+  original_not: String
+
+  """All values that are contained in given list."""
+  original_in: [String!]
+
+  """All values that are not contained in given list."""
+  original_not_in: [String!]
+
+  """All values less than the given value."""
+  original_lt: String
+
+  """All values less than or equal the given value."""
+  original_lte: String
+
+  """All values greater than the given value."""
+  original_gt: String
+
+  """All values greater than or equal the given value."""
+  original_gte: String
+
+  """All values containing the given string."""
+  original_contains: String
+
+  """All values not containing the given string."""
+  original_not_contains: String
+
+  """All values starting with the given string."""
+  original_starts_with: String
+
+  """All values not starting with the given string."""
+  original_not_starts_with: String
+
+  """All values ending with the given string."""
+  original_ends_with: String
+
+  """All values not ending with the given string."""
+  original_not_ends_with: String
+  w200: String
+
+  """All values that are not equal to given value."""
+  w200_not: String
+
+  """All values that are contained in given list."""
+  w200_in: [String!]
+
+  """All values that are not contained in given list."""
+  w200_not_in: [String!]
+
+  """All values less than the given value."""
+  w200_lt: String
+
+  """All values less than or equal the given value."""
+  w200_lte: String
+
+  """All values greater than the given value."""
+  w200_gt: String
+
+  """All values greater than or equal the given value."""
+  w200_gte: String
+
+  """All values containing the given string."""
+  w200_contains: String
+
+  """All values not containing the given string."""
+  w200_not_contains: String
+
+  """All values starting with the given string."""
+  w200_starts_with: String
+
+  """All values not starting with the given string."""
+  w200_not_starts_with: String
+
+  """All values ending with the given string."""
+  w200_ends_with: String
+
+  """All values not ending with the given string."""
+  w200_not_ends_with: String
+}
+
+input ScreenWhereUniqueInput {
+  id: ID
+}
+
+type Subscription {
+  screen(where: ScreenSubscriptionWhereInput): ScreenSubscriptionPayload
+}

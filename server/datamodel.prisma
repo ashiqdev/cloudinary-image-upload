@@ -1,0 +1,6 @@
+type Screen {
+  id: ID! @id
+  basepath: String!
+  original: String!
+  w200: String!
+}
